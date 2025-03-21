@@ -15,16 +15,25 @@ function App() {
   const [routing, setRouting] = useState(PAGES.LIST);
 
   useEffect(() => {
-    if (!localStorage.getItem("contacts").length) {
+    const contactsFromLocalStorage = localStorage.getItem("contacts");
+
+    if (contactsFromLocalStorage) {
+      setContacts(JSON.parse(contactsFromLocalStorage));
+      localStorage.removeItem("contacts");
+    } else {
       fetch("https://jsonplaceholder.typicode.com/users")
         .then(res => res.json())
         .then(data => setContacts(data));
-    } else {
-      setContacts(JSON.parse(localStorage.getItem("contacts")));
     }
+
+    return () => {
+      localStorage.setItem("contacts", JSON.stringify(contacts));
+    };
   }, []);
 
   useEffect(() => {
+    if (!contacts.length) return;
+
     localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
 
