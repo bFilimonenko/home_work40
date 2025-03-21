@@ -15,10 +15,18 @@ function App() {
   const [routing, setRouting] = useState(PAGES.LIST);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then(res => res.json())
-      .then(data => setContacts(data))
+    if (!localStorage.getItem("contacts").length) {
+      fetch("https://jsonplaceholder.typicode.com/users")
+        .then(res => res.json())
+        .then(data => setContacts(data));
+    } else {
+      setContacts(JSON.parse(localStorage.getItem("contacts")));
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   return (
     <>
@@ -29,7 +37,7 @@ function App() {
         Add Contact
       </Button>
 
-      {routing === PAGES.LIST && <ContactsList contacts={contacts}/>}
+      {routing === PAGES.LIST && <ContactsList contacts={contacts} setContacts={setContacts}/>}
       {routing === PAGES.ADD && <ContactForm/>}
 
     </>

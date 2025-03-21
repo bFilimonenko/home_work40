@@ -2,7 +2,12 @@ import "./ContactsList.css";
 import { Delete, Edit } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
-export const ContactsList = ({ contacts }) => {
+export const ContactsList = ({ contacts, setContacts }) => {
+
+  const deleteContact = (id) => {
+    setContacts(contacts.filter(contact => contact.id !== id))
+  }
+
   return (
     <>
       <div className="contacts-table">
@@ -23,7 +28,7 @@ export const ContactsList = ({ contacts }) => {
               <Edit/>
             </IconButton>
 
-            <IconButton color="error">
+            <IconButton color="error" onClick={() => deleteContact(contact.id)}>
               <Delete/>
             </IconButton>
           </p>
