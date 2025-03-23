@@ -1,14 +1,12 @@
-import "./ContactsList.css";
-import { Delete, Edit } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
-import { PAGES } from "../App.jsx";
-
+import './ContactsList.css';
+import { Delete, Edit } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
+import { PAGES } from '../App.jsx';
 
 export const ContactsList = ({ contacts, setContacts, setSelectedContact, setRouting }) => {
-
   const deleteContact = (id) => {
-    setContacts(contacts.filter(contact => contact.id !== id))
-  }
+    setContacts(contacts.filter((contact) => contact.id !== id));
+  };
 
   return (
     <>
@@ -20,21 +18,29 @@ export const ContactsList = ({ contacts, setContacts, setSelectedContact, setRou
           <p className="actions">ACTIONS</p>
         </div>
 
-        {contacts.map(contact => (<div key={contact.id} className="contact table-row">
-          <p className="first-name">{contact.firstName}</p>
-          <p className="last-name">{contact.lastName}</p>
-          <p className="phone">{contact.phone}</p>
+        {contacts.map((contact) => (
+          <div key={contact.id} className="contact table-row">
+            <p className="first-name">{contact.firstName}</p>
+            <p className="last-name">{contact.lastName}</p>
+            <p className="phone">{contact.phone}</p>
 
-          <p className="actions">
-            <IconButton color="info" onClick={() => {setSelectedContact(contact); setRouting(PAGES.ADD)}}>
-              <Edit/>
-            </IconButton>
+            <p className="actions">
+              <IconButton
+                color="info"
+                onClick={() => {
+                  setSelectedContact(contact);
+                  setRouting(PAGES.ADD);
+                }}
+              >
+                <Edit />
+              </IconButton>
 
-            <IconButton color="error" onClick={() => deleteContact(contact.id)}>
-              <Delete/>
-            </IconButton>
-          </p>
-        </div>))}
+              <IconButton color="error" onClick={() => deleteContact(contact.id)}>
+                <Delete />
+              </IconButton>
+            </p>
+          </div>
+        ))}
       </div>
     </>
   );

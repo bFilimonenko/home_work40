@@ -9,6 +9,7 @@
     display: flex;
     justify-content: space-around;
 }
+
 .form-control > button {
     width: 48%;
 }

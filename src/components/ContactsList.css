@@ -10,7 +10,8 @@
     height: 50px;
     font-weight: bold;
     background: #ffd0cc;
-    &:nth-child(1){
+
+    &:nth-child(1) {
         border-left: 1px solid #a10532;
     }
 }
