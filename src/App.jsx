@@ -5,7 +5,7 @@ import { Contacts, PersonAddAlt1 } from "@mui/icons-material";
 import { ContactsList } from "./components/ContactsList.jsx";
 import { ContactForm } from "./components/ContactForm.jsx";
 
-const PAGES = {
+export const PAGES = {
   LIST: "Contacts list",
   ADD: "Add contact"
 };
@@ -54,7 +54,7 @@ function App() {
       </Button>
 
       {routing === PAGES.LIST && <ContactsList contacts={contacts} setContacts={setContacts}/>}
-      {routing === PAGES.ADD && <ContactForm contacts={contacts} setContacts={setContacts}/>}
+      {routing === PAGES.ADD && <ContactForm contacts={contacts} setContacts={setContacts} setRouting={setRouting}/>}
 
     </>
   );
