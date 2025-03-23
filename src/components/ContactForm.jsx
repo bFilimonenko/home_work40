@@ -1,10 +1,10 @@
 import "./ContactForm.css";
 import { Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMask } from "@react-input/mask";
 import { PAGES } from "../App.jsx";
 
-export const ContactForm = ({ contacts, setContacts, setRouting }) => {
+export const ContactForm = ({ contacts, setContacts, setRouting, selectedContact }) => {
   const [formValue, setFormValue] = useState({
     firstName: "",
     lastName: "",
@@ -58,6 +58,22 @@ export const ContactForm = ({ contacts, setContacts, setRouting }) => {
       return;
     }
 
+    if (selectedContact) {
+      setContacts(contacts.reduce((acc, contact) => {
+        if (contact.id !== selectedContact.id) {
+          acc.push(contact);
+        } else {
+          acc.push({
+            id: contact.id,
+            ...formValue
+          });
+        }
+        return acc;
+      }, []));
+      setRouting(PAGES.LIST);
+      return;
+    }
+
     setContacts([
       ...contacts,
       {
@@ -69,6 +85,17 @@ export const ContactForm = ({ contacts, setContacts, setRouting }) => {
 
     setRouting(PAGES.LIST);
   };
+
+  useEffect(() => {
+    if (!selectedContact) return;
+
+    setFormValue({
+      firstName: selectedContact.firstName,
+      lastName: selectedContact.lastName,
+      phone: selectedContact.phone
+    });
+
+  }, [selectedContact]);
 
   return (
     <>

@@ -13,6 +13,7 @@ export const PAGES = {
 function App() {
   const [contacts, setContacts] = useState([]);
   const [routing, setRouting] = useState(PAGES.LIST);
+  const [selectedContact, setSelectedContact] = useState(null);
 
   useEffect(() => {
     const contactsFromLocalStorage = localStorage.getItem("contacts");
@@ -44,6 +45,10 @@ function App() {
     localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
 
+  useEffect(() => {
+    routing === PAGES.LIST && setSelectedContact(null);
+  }, [routing]);
+
   return (
     <>
       <Button variant="outlined" startIcon={<Contacts/>} onClick={() => setRouting(PAGES.LIST)}>
@@ -53,8 +58,20 @@ function App() {
         Add Contact
       </Button>
 
-      {routing === PAGES.LIST && <ContactsList contacts={contacts} setContacts={setContacts}/>}
-      {routing === PAGES.ADD && <ContactForm contacts={contacts} setContacts={setContacts} setRouting={setRouting}/>}
+      {routing === PAGES.LIST &&
+        <ContactsList
+          contacts={contacts}
+          setContacts={setContacts}
+          setSelectedContact={setSelectedContact}
+          setRouting={setRouting}
+        />}
+      {routing === PAGES.ADD &&
+        <ContactForm
+          contacts={contacts}
+          setContacts={setContacts}
+          setRouting={setRouting}
+          selectedContact={selectedContact}
+        />}
 
     </>
   );

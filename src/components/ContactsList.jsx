@@ -1,8 +1,10 @@
 import "./ContactsList.css";
 import { Delete, Edit } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { PAGES } from "../App.jsx";
 
-export const ContactsList = ({ contacts, setContacts }) => {
+
+export const ContactsList = ({ contacts, setContacts, setSelectedContact, setRouting }) => {
 
   const deleteContact = (id) => {
     setContacts(contacts.filter(contact => contact.id !== id))
@@ -24,7 +26,7 @@ export const ContactsList = ({ contacts, setContacts }) => {
           <p className="phone">{contact.phone}</p>
 
           <p className="actions">
-            <IconButton color="info">
+            <IconButton color="info" onClick={() => {setSelectedContact(contact); setRouting(PAGES.ADD)}}>
               <Edit/>
             </IconButton>
 
