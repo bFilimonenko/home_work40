@@ -19,8 +19,8 @@ export const ContactsList = ({ contacts, setContacts }) => {
         </div>
 
         {contacts.map(contact => (<div key={contact.id} className="contact table-row">
-          <p className="first-name">{contact.name.split(" ")[0]}</p>
-          <p className="last-name">{contact.name.split(" ")[1]}</p>
+          <p className="first-name">{contact.firstName}</p>
+          <p className="last-name">{contact.lastName}</p>
           <p className="phone">{contact.phone}</p>
 
           <p className="actions">

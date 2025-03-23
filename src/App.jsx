@@ -23,7 +23,14 @@ function App() {
     } else {
       fetch("https://jsonplaceholder.typicode.com/users")
         .then(res => res.json())
-        .then(data => setContacts(data));
+        .then(data => {
+          setContacts(data.map((el) => ({
+            id: el.id,
+            firstName: el.name.split(" ")[0],
+            lastName: el.name.split(" ")[1],
+            phone: el.phone
+          })));
+        });
     }
 
     return () => {
@@ -47,7 +54,7 @@ function App() {
       </Button>
 
       {routing === PAGES.LIST && <ContactsList contacts={contacts} setContacts={setContacts}/>}
-      {routing === PAGES.ADD && <ContactForm/>}
+      {routing === PAGES.ADD && <ContactForm contacts={contacts} setContacts={setContacts}/>}
 
     </>
   );
